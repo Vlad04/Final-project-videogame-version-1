@@ -27,4 +27,5 @@ public interface ListInterface <Type> {
 													//If the current position is the last element, then it advances the value of 
 													//the current position to the first element; otherwise, it advances the value 
 													//of the current position to the next element.
+
 }
