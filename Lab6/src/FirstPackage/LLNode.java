@@ -5,45 +5,39 @@ Made with the help of the book Object-Oriented Data Structures using Java (3ed e
 */
 public class LLNode<T>{
 
-	private LLNode link;
-	private T info;
+	private LLNode link;							//private link of LLNode Type
+	private T info;									//Information 
 
-	//Pre: None
-	//Post: None
-	public LLNode(){
-		this.info = null;
-		link=null;
+	
+	public LLNode(){								//constructor of LLNode class
+		this.info = null;							//info is null in the beginning
+		link=null;									//initialize link to null
 	}
 
-	//None
-	//this.info equals to info
-	public LLNode(T info){
-		this.info = info;
-		link = null;
+	
+	public LLNode(T info){							//second constructor that get an info like parameter
+		this.info = info;							//this actual info is equal to info
+		link = null;								//link is null
 	}
-	//Pre: None
-	//Post: Set infor of this LLNode
-	public void setInfo(T info){
-	// Sets info of this LLNode.
-		this.info = info;
+	
+	public void setInfo(T info){					//setInfo method to set the information of LLNode
+	
+		this.info = info;							//the actual info is equals to info
 	}
 
-	//Pre: None
-	//Post: Return the info of the link
-	public T getInfo(){
-	// Returns info of this LLONode.
+	
+	public T getInfo(){								//getInfo method that get the information of LLNode
+	
 		return info;
 	}
-	//Pre: None
-	//Post: Sets link of this LLNode.
-	public void setLink(LLNode<T> link){
-	// Sets link of this LLNode.
+	
+	public void setLink(LLNode<T> link){			//setLink method that set the link of LLNode
+	
 		this.link = link;
 	}
 
-	//Pre: None
-	//Post: Returns link of this LLNode.
-	public LLNode<T> getLink(){
+	
+	public LLNode<T> getLink(){						//LLNode method that returns link to LLNode
 	// Returns link of this LLNode.
 		return link;
 	}
