@@ -3,33 +3,30 @@ package FirstPackage;
 //import UnsortedListL.LLNode;
 
 public class UnsortedListL<T> implements UnsortedListInterface<T>{
-	protected int numElements;
-	protected LLNode<T> currentPos;
+	protected int number_of_elements;							//number of elements in the list
+	protected LLNode<T> current_position;						//current position in the list
 	
-	protected boolean found;
-	protected LLNode<T> location;
+	protected boolean found;									 
+	protected LLNode<T> location;							
 	protected LLNode<T> previous;
 	
 	protected LLNode<T> list;
 
 	
-	public UnsortedListL(){
-		this.numElements=0;
-		list = null;
-		currentPos=null;
+	public UnsortedListL(){										//constructor of UnsortedListL class
+		this.number_of_elements=0;								//number of elements equals to 0
+		list = null;											//initialize list with null
+		current_position=null;									//initialize current position with null
 	}
 	
-	//pre: an object of any kind.
-	//pos: an object in the linked list.
-	public void add(T element) {
+	public void add(T element) {								//Adds elements to the list with help of Nodes (help from book).		
 		LLNode<T> newNode = new LLNode<T>(element);
 		newNode.setLink(list);
 		list = newNode;
-		numElements++;
+		number_of_elements++;
 	}
 
-	//pre: an object of any kind.
-	//pos: modifies the variable found.
+	
 	public void find(T target) {
 		this.location = list;
 		this.found = false;
@@ -46,21 +43,18 @@ public class UnsortedListL<T> implements UnsortedListInterface<T>{
 		}
 	}
 	
-	//pre: none.
-	//pos: returns the number of elements in the liked list.
+	
 	public int size() {
-		return this.numElements;
+		return this.number_of_elements;
 	}
 	
-	//pre: any object.
-	//pos: returns true if a the object is in the link.
+	
 	public boolean contains(T element) {
 		this.find(element);
 		return found;
 	}
 
-	//pre: any object.
-	//pos: returns true if the object is listed and removes it.
+	
 	public boolean remove(T element) {
 		this.find(element);
 		if (this.found) {
@@ -70,13 +64,12 @@ public class UnsortedListL<T> implements UnsortedListInterface<T>{
 			else{
 				this.previous.setLink(location.getLink());
 			}
-			this.numElements--;
+			this.number_of_elements--;
 		}
 		return found;
 	}
 	
-	//pre: any object.
-	//pos: returns the object if is linked.
+	
 	public T get(T element) {
 		this.find(element);
 		if (found) {
@@ -86,8 +79,7 @@ public class UnsortedListL<T> implements UnsortedListInterface<T>{
 			return null;
 		}
 	}
-	//pre: none.
-	//pos: returns a string with the elements in the list.
+	
 	public String toString(){
 		LLNode<T> currNode = list;
 		String listString = "List:\n";
@@ -101,23 +93,21 @@ public class UnsortedListL<T> implements UnsortedListInterface<T>{
 	}
 	
 	
-	//pre: none.
-	//pos: returns the current position to 0.
+	
 	public void reset() {
 		
-		this.currentPos = this.list;
+		this.current_position = this.list;
 		
 	}
 
-	//pre: none.
-	//pos: modifyes the position in the list.
+	
 	public T getNext() {
-		T next = this.currentPos.getInfo();
-		if (this.currentPos.getLink() == null) {
-			this.currentPos = list;
+		T next = this.current_position.getInfo();
+		if (this.current_position.getLink() == null) {
+			this.current_position = list;
 		}
 		else{
-			this.currentPos = this.currentPos.getLink();
+			this.current_position = this.current_position.getLink();
 		}
 		return next;
 	}
