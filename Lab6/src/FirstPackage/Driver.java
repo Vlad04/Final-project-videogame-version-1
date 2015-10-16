@@ -1,4 +1,7 @@
 package FirstPackage;
+import  java.io.BufferedReader;
+import  java.io.IOException;
+import  java.io.InputStreamReader;
 
 
 import java.lang.Character.UnicodeBlock;
@@ -8,54 +11,63 @@ import java.util.Scanner;
 
 public class Driver {
 
-	public static void main(String[] args) {
-		System.out.println("Welcome to my unboundedlist proyect. \n");
-		System.out.println("You have the options to manipulate 2 diferent lists. \n");
-		System.out.println("The first one is a list if cards and the second a list of squares. \n");
-		System.out.println("The first one is a list if cards and the second a list of squares. \n");
-		System.out.println("You have the options to add, remove and count the number of items on every list. \n");
+	//Menu options
 		
-		UnsortedList<Square> UnsortedCardList = new UnsortedList<Square>();
-		UnsortedList<Square> UnsortedSquareList = new UnsortedList<Square>();
-		Scanner sc = new Scanner(System.in);
-		boolean open = true;
+		public static void main(String[]args) throws Exception{
+			//Init 
+		    InputStreamReader isr = new  InputStreamReader (System.in);
+		    BufferedReader br = new BufferedReader(isr);
+		 
+		   //Welcome message
+		    System.out.println("HI, Please write your name");
+		    String name_player = br.readLine();
+		    System.out.println("Hello "+name_player);
+		    
+		    
+		
+		    UnsortedList<Card> UnsortedCardList = new UnsortedList<Card>();
+		    UnsortedList<Circle> UnsortedCircleList = new UnsortedList<Circle>();
+		    Scanner sc = new Scanner(System.in);
+		    boolean open = true;
 		
 		do {
 			try {
-				System.out.println("Please select an option. \n");
-				System.out.printf("%-10s %10s %n", "[1]", "Add a random value to the a list of cards");
-				System.out.printf("%-10s %10s %n", "[2]", "Add a value the a list of Squares");
-				System.out.printf("%-10s %10s %n", "[3]", "remove a value the list of cards");
-				System.out.printf("%-10s %10s %n", "[4]", "remove a value the list of Squares");
-				System.out.printf("%-10s %10s %n", "[5]", "Show the number of elements of the list of cards");
-				System.out.printf("%-10s %10s %n", "[6]", "Show the number of elements of the list of squares\n");
-				System.out.printf("%-10s %10s %n", "[9]", "Closes the program");
+				
+				 System.out.println("Please, chose one option");
+			        System.out.println("1) Add a random value to the list of Cards.");
+			        System.out.println("2) Add a value to the list of Circles");
+			        System.out.println("3) Remove a value of the list of Cards.");
+			        System.out.println("4) Remove a value of the list of Circles");
+			        System.out.println("5) Show the number of elements of the list of Cards");
+			        System.out.println("6) Show the number of elements of the list of Circles");
+			        System.out.println("7) Exit");
 
 				int options = sc.nextInt();
-
+				
+				
 				switch (options) {
 				case 1:
-					Card commonCard = new Card();
-					UnsortedCardList.add(commonCard);
-					System.out.println("Random card added to the list.");
-					System.out.println("**" + commonCard + "**");
+					Card my_Card = new Card();
+					UnsortedCardList.add(my_Card);
+					System.out.println("Random card was added to the list.");
+					System.out.println("--" + my_Card + "--");
 					break;
 				case 2:
-					Square commonSquare = null;
-					int sideLength = 0;
+					Circle my_Circle = null;
+					int circle_radio = 0;
 					do {
 						try {
-							System.out.println("Input the length for the side of the square");
-							sideLength = sc.nextInt();
-							commonSquare = new Square(sideLength);
+							System.out.println("Input the length for the radio of the Circle");
+							circle_radio = sc.nextInt();
+							my_Circle = new Circle(circle_radio);
 						} catch (InputMismatchException e) {
-							System.err.println("Please enter a number");
+							System.err.println("Please write a number");
 						}
 						sc.nextLine();
-					} while (sideLength <= 0);
-					UnsortedSquareList.add(commonSquare);
-					System.out.println("Square added to the list.");
-					System.out.println("**" + commonSquare + "**");
+					} while (circle_radio <= 0);
+					UnsortedCircleList.add(my_Circle);
+					System.out.println("Circle added to the list.");
+					System.out.println("--" + my_Circle + "--");
 					break;
 				case 3:
 					int cardRank = 0, cardSuit = 0;
@@ -65,44 +77,44 @@ public class Driver {
 							cardRank = sc.nextInt();
 
 						} catch (InputMismatchException e) {
-							System.err.println("The card rank is invalid.");
+							System.err.println("The card rank is no valid.");
 						}
 						sc.nextLine();
 					} while (cardRank<=0 || cardRank>13);
 					do {
 						try {
-							System.out.println("Input the Suit of the card.\n[1]clubs\n[2]diamonts\n[3]hearths\n[4]spades");
+							System.out.println("Input the Suit of the card.\n1)clubs\n2)diamonts\n3)hearths\n4)spades");
 							cardSuit = sc.nextInt();
 						} catch (InputMismatchException e) {
-							System.err.println("The card suit is invalid.");
+							System.err.println("The card suit is no valid.");
 						}
 						sc.nextLine();
 					} while (cardSuit <=0 || cardSuit>4);
 					if (UnsortedCardList.remove(new Card(cardRank,cardSuit))) {
-						System.out.println("Card \"" + new Card(cardRank,cardSuit) + "\" REMOVED");
+						System.out.println("Card \"" + new Card(cardRank,cardSuit) + "\" removed");
 					} else {
-						System.out.println("Card \"" + new Card(cardRank,cardSuit) + "\" NOT FOUND");
+						System.out.println("Card \"" + new Card(cardRank,cardSuit) + "\" removed");
 
 					}
 					break;
 					
 				case 4:
-					sideLength = 0;
+					circle_radio = 0;
 					do {
 						try {
-							System.out.println("Enter the size of the square you want to remove from the list.");
-							sideLength = sc.nextInt();
+							System.out.println("Enter the radio of the Circle you want to remove from the list.");
+							circle_radio = sc.nextInt();
 
 						} catch (InputMismatchException e) {
-							System.err.println("Please enter a number");
+							System.err.println("Please write a number");
 						}
 						sc.nextLine();
-					} while (sideLength <= 0);
-					if (UnsortedSquareList.remove(new Square(sideLength))) {
-						System.out.println("object \"Square\" REMOVED");
+					} while (circle_radio <= 0);
+					if (UnsortedCircleList.remove(new Circle(circle_radio))) {
+						System.out.println("object \"Circle\" removed");
 					}
 					else {
-						System.out.println("Object \"Square\" NOT FOUND");
+						System.out.println("Object \"Circle\" removed");
 					}
 					break;
 				case 5:
@@ -110,11 +122,11 @@ public class Driver {
 					System.out.println("The number of elements in this list is " + UnsortedCardList.size()+"\n");
 					break;
 				case 6:
-					System.out.println(UnsortedSquareList);
-					System.out.println("The number of elements in this list is " + UnsortedSquareList.size()+"\n");
+					System.out.println(UnsortedCircleList);
+					System.out.println("The number of elements in this list is " + UnsortedCircleList.size()+"\n");
 					break;
-				case 9:
-					System.out.println("See you later :)");
+				case 7:
+					System.out.println("Good bye");
 					open = false;
 					break;
 				}
