@@ -2,29 +2,28 @@ package FirstPackage;
 
 public class UnsortedList<T> implements UnsortedListInterface<T>{
 	protected T[] list;
-	protected final int defCap = 100;
-	protected int originCap;
-	protected int numElements = 0;
-	protected int currentPos;
+	protected final int capacity = 100;
+	protected int original_capacity;
+	protected int number_of_elements = 0;
+	protected int current_position;
 	
 	protected boolean found;
 	protected int location;
 
 	public UnsortedList(int originCap) {
 		this.list = (T[]) new Object [originCap];
-		this.originCap = originCap;
+		this.original_capacity = originCap;
 	}
 	
 	public UnsortedList() {
-		this.list = (T[]) new Object [this.defCap];
-		this.originCap = this.defCap;
+		this.list = (T[]) new Object [this.capacity];
+		this.original_capacity = this.capacity;
 	}
 	
 	private void enLarge(){
-		// increments the capacity of the list by an amount
-		// equal to the original capacity.
-		T[] larger = (T[]) new Object [list.length + this.originCap];
-		for (int i = 0; i < numElements; i++) {
+		
+		T[] larger = (T[]) new Object [list.length + this.original_capacity];
+		for (int i = 0; i < number_of_elements; i++) {
 			larger[i] = this.list[i];
 		}
 		
@@ -33,14 +32,14 @@ public class UnsortedList<T> implements UnsortedListInterface<T>{
 	
 	@Override
 	public void find(T target) {
-		// searches list for an occurrence of an element e such that
-		// e.equals(target). If successful, sets instance variables
-		// found to true and location to the array index of e. If not
-		// successful, set found to false.
+		//Searches list for an occurrence of an element such that 	
+		//e.equals(target). If successful, sets instance variables
+		//found to true, location to node containing, and previous to the node that
+		//links to location. If not successful, sets found to false.
 		this.location = 0;
 		this.found = false;
 		
-		while (location < numElements) {
+		while (location < number_of_elements) {
 			if (this.list[location].equals(target)) {
 				this.found = true;
 				return;
@@ -53,17 +52,17 @@ public class UnsortedList<T> implements UnsortedListInterface<T>{
 	@Override
 	public void add(T commonCard) {
 		// Adds elements to the list.
-		if (numElements == list.length) {
+		if (number_of_elements == list.length) {
 			enLarge();
 		}
-		list[numElements] = commonCard;
-		numElements++;
+		list[number_of_elements] = commonCard;
+		number_of_elements++;
 	}
 
 	@Override
 	public int size() {
 		// Returns the number of elements on this list.
-		return numElements;
+		return number_of_elements;
 	}
 
 	@Override
@@ -74,21 +73,21 @@ public class UnsortedList<T> implements UnsortedListInterface<T>{
 
 	@Override
 	public boolean remove(T element) {
-		// Removes an element e fron this list such that e.equals(element)
-		// and returns true; if no such element exists, return false
+		//Removes an element from this list such that e.equals(element).
+		//and returns true; if no such element exits, returns false.
 		this.find(element);
 		if (found) {
-			list[location] = list[numElements-1];
-			list[numElements-1] = null;
-			numElements--;
+			list[location] = list[number_of_elements-1];
+			list[number_of_elements-1] = null;
+			number_of_elements--;
 		}
 		return found;
 	}
 
 	@Override
 	public T get(T element) {
-		// Returns an element e fron this list such that e.equals(element);
-		// if no such element exists, return null.
+		// Returns an element e from this list such that e.equals(element);
+		// if no such element exists, returns null.
 		find(element);
 		if (found) {
 			return list[location];
@@ -101,37 +100,35 @@ public class UnsortedList<T> implements UnsortedListInterface<T>{
 	public String toString(){
 		//returns a nicely formatted string that represents this list.
 		String listString = "list:\n";
-		for (int i = 0; i < numElements; i++) {
+		for (int i = 0; i < number_of_elements; i++) {
 			listString = listString + " " + list[i] + "\n";
 		}
 		return listString;
 	}
 	
 	public void reset() {
-		currentPos = 0;
+		current_position = 0;
 		
 	}
 
 	@Override
 	public T getNext() {
-		
-		T next = list[currentPos];
-		if (currentPos==(numElements-1)) {
-			currentPos=0;
+		//PRECONDITION: The list is NOT empty.
+		//				The list has been reset.
+		//The list has not been modified since the most recent reset.
+		//Returns the element at the current position on this list.
+		//If the current position is the last element, then it advances the value of 
+		//the current position to the first element; otherwise, it advances the value 
+		//of the current position to the next element.
+		T next = list[current_position];
+		if (current_position==(number_of_elements-1)) {
+			current_position=0;
 		} else {
-			currentPos++;
+			current_position++;
 		}
 		return next;
 	}
 
-	public void add(Card commonCard) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public boolean remove(Card card) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 
 }
